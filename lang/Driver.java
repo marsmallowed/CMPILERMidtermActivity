@@ -14,7 +14,6 @@ import antlr.HelloParser;
 public class Driver {
 
 	public static void main(String[] args) throws IOException {
-		ArrayList<Integer> output = new ArrayList<Integer>();
 		
 		String fileName = "input.txt";
 		ArrayList<String> equations = new ArrayList<String>();
@@ -22,22 +21,20 @@ public class Driver {
 		
 		for (String s : equations) {
 			ANTLRInputStream input = new ANTLRInputStream(s);
-
-	        HelloLexer lexer = new HelloLexer(input);
-
+			
+	        //Get lexer
+			HelloLexer lexer = new HelloLexer(input);
+			
+			//Get a list of matched tokens
 	        CommonTokenStream tokens = new CommonTokenStream(lexer);
 
+	        //Pass the tokens to the parser
 	        HelloParser parser = new HelloParser(tokens);
+	        
 	        parser.setBuildParseTree(true);
-	        HelloBaseListener solve = new HelloBaseListener(); 
-	        parser.addParseListener(solve);
+	        parser.addParseListener(new HelloBaseListener());
 	        ParseTree tree = parser.s();
-	        output.add(solve.stack.pop());
-		}
-		
-		System.out.println("ANSWERS:");
-		for (Integer i : output) {
-			System.out.println(i);
+
 		}
 	}
 
