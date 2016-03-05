@@ -11,6 +11,18 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface HelloListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by the {@code NegaExpr}
+	 * labeled alternative in {@link HelloParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterNegaExpr(@NotNull HelloParser.NegaExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NegaExpr}
+	 * labeled alternative in {@link HelloParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitNegaExpr(@NotNull HelloParser.NegaExprContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link HelloParser#s}.
 	 * @param ctx the parse tree
 	 */
@@ -21,17 +33,29 @@ public interface HelloListener extends ParseTreeListener {
 	 */
 	void exitS(@NotNull HelloParser.SContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AddSub}
+	 * Enter a parse tree produced by the {@code ParenExpr}
 	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterAddSub(@NotNull HelloParser.AddSubContext ctx);
+	void enterParenExpr(@NotNull HelloParser.ParenExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AddSub}
+	 * Exit a parse tree produced by the {@code ParenExpr}
 	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitAddSub(@NotNull HelloParser.AddSubContext ctx);
+	void exitParenExpr(@NotNull HelloParser.ParenExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NegaUnit}
+	 * labeled alternative in {@link HelloParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterNegaUnit(@NotNull HelloParser.NegaUnitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NegaUnit}
+	 * labeled alternative in {@link HelloParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitNegaUnit(@NotNull HelloParser.NegaUnitContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code MultDivMod}
 	 * labeled alternative in {@link HelloParser#expr}.
@@ -45,17 +69,17 @@ public interface HelloListener extends ParseTreeListener {
 	 */
 	void exitMultDivMod(@NotNull HelloParser.MultDivModContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ParenExpr}
+	 * Enter a parse tree produced by the {@code AddSub}
 	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterParenExpr(@NotNull HelloParser.ParenExprContext ctx);
+	void enterAddSub(@NotNull HelloParser.AddSubContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ParenExpr}
+	 * Exit a parse tree produced by the {@code AddSub}
 	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitParenExpr(@NotNull HelloParser.ParenExprContext ctx);
+	void exitAddSub(@NotNull HelloParser.AddSubContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Unit}
 	 * labeled alternative in {@link HelloParser#expr}.

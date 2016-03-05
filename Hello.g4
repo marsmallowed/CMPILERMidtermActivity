@@ -6,7 +6,6 @@ grammar Hello;
 	package antlr;
 }
 // LEXER
-Num : '-'*[0-9]+;
 AddOp : '+';
 SubOp : '-';
 MultOp : '*';
@@ -14,15 +13,15 @@ DivOp : '/';
 ModOp : '%';
 
 // PARSER
-s :
-		expr;
+
+s : expr;
+expr : '-' expr								#NegaExpr 
+	| '(' expr ')'							#ParenExpr
+	| expr (MultOp | DivOp | ModOp) expr	#MultDivMod
+	| expr (AddOp | SubOp) expr				#AddSub
+	| Num									#Unit
+	| '-' Num								#NegaUnit;
 	
-expr :
-		'(' expr ')'						#ParenExpr
- 	|	expr (MultOp | DivOp | ModOp) expr	#MultDivMod
- 	|	expr (AddOp | SubOp) expr			#AddSub
- 	|	Num									#Unit;
 
-
-
-WS : [ \t\n\r]+ -> skip;
+Num : [0-9]+;
+WS : [' '\t'\r''\n']+ -> skip;
