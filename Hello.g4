@@ -15,24 +15,14 @@ ModOp : '%';
 
 // PARSER
 s :
-		expr s
-	|	expr;
+		expr;
+	
 expr :
-		'(' expr ')'
-	|	expr MultOp expr
-	|	expr DivOp expr
-	|	expr ModOp expr
-	|	expr AddOp expr
-	|	expr SubOp expr
-	|	Num;
+		'(' expr ')'						#ParenExpr
+ 	|	expr (MultOp | DivOp | ModOp) expr	#MultDivMod
+ 	|	expr (AddOp | SubOp) expr			#AddSub
+ 	|	Num									#Unit;
 
-//addsub :
-//		expr AddOp expr
-//	|	expr SubOp expr;
-//
-//multdivmod :
-//			expr MultOp expr
-//		|	expr DivOp expr
-//		|	expr ModOp expr;
 
-WS : [' '\t\n\r]+ -> skip;
+
+WS : [ \t\n\r]+ -> skip;

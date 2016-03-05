@@ -1,5 +1,7 @@
-package antlr;
 // Generated from Hello.g4 by ANTLR 4.4
+
+	package antlr;
+
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -8,36 +10,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  * {@link HelloParser}.
  */
 public interface HelloListener extends ParseTreeListener {
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#add}.
-	 * @param ctx the parse tree
-	 */
-	void enterAdd(@NotNull HelloParser.AddContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#add}.
-	 * @param ctx the parse tree
-	 */
-	void exitAdd(@NotNull HelloParser.AddContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#div}.
-	 * @param ctx the parse tree
-	 */
-	void enterDiv(@NotNull HelloParser.DivContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#div}.
-	 * @param ctx the parse tree
-	 */
-	void exitDiv(@NotNull HelloParser.DivContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#sub}.
-	 * @param ctx the parse tree
-	 */
-	void enterSub(@NotNull HelloParser.SubContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#sub}.
-	 * @param ctx the parse tree
-	 */
-	void exitSub(@NotNull HelloParser.SubContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HelloParser#s}.
 	 * @param ctx the parse tree
@@ -49,43 +21,51 @@ public interface HelloListener extends ParseTreeListener {
 	 */
 	void exitS(@NotNull HelloParser.SContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#mult}.
+	 * Enter a parse tree produced by the {@code AddSub}
+	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterMult(@NotNull HelloParser.MultContext ctx);
+	void enterAddSub(@NotNull HelloParser.AddSubContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#mult}.
+	 * Exit a parse tree produced by the {@code AddSub}
+	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitMult(@NotNull HelloParser.MultContext ctx);
+	void exitAddSub(@NotNull HelloParser.AddSubContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#mod}.
+	 * Enter a parse tree produced by the {@code MultDivMod}
+	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterMod(@NotNull HelloParser.ModContext ctx);
+	void enterMultDivMod(@NotNull HelloParser.MultDivModContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#mod}.
+	 * Exit a parse tree produced by the {@code MultDivMod}
+	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitMod(@NotNull HelloParser.ModContext ctx);
+	void exitMultDivMod(@NotNull HelloParser.MultDivModContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#expr}.
+	 * Enter a parse tree produced by the {@code ParenExpr}
+	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpr(@NotNull HelloParser.ExprContext ctx);
+	void enterParenExpr(@NotNull HelloParser.ParenExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#expr}.
+	 * Exit a parse tree produced by the {@code ParenExpr}
+	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpr(@NotNull HelloParser.ExprContext ctx);
+	void exitParenExpr(@NotNull HelloParser.ParenExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#expr2}.
+	 * Enter a parse tree produced by the {@code Unit}
+	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpr2(@NotNull HelloParser.Expr2Context ctx);
+	void enterUnit(@NotNull HelloParser.UnitContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#expr2}.
+	 * Exit a parse tree produced by the {@code Unit}
+	 * labeled alternative in {@link HelloParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpr2(@NotNull HelloParser.Expr2Context ctx);
+	void exitUnit(@NotNull HelloParser.UnitContext ctx);
 }

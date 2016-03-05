@@ -29,10 +29,15 @@ public class Driver {
 
 	        HelloParser parser = new HelloParser(tokens);
 	        parser.setBuildParseTree(true);
-	        parser.addParseListener(new HelloBaseListener());
+	        HelloBaseListener solve = new HelloBaseListener(); 
+	        parser.addParseListener(solve);
 	        ParseTree tree = parser.s();
-	        for (int i=0; i<tree.getChildCount(); i++)
-	        	System.out.println(tree.getChild(i));
+	        output.add(solve.stack.pop());
+		}
+		
+		System.out.println("ANSWERS:");
+		for (Integer i : output) {
+			System.out.println(i);
 		}
 	}
 

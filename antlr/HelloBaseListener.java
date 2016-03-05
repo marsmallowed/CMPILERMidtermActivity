@@ -1,5 +1,7 @@
-package antlr;
 // Generated from Hello.g4 by ANTLR 4.4
+
+	package antlr;
+
 
 import java.util.Stack;
 
@@ -7,6 +9,8 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+
+import antlr.HelloParser.MultDivModContext;
 
 /**
  * This class provides an empty implementation of {@link HelloListener},
@@ -19,116 +23,102 @@ public class HelloBaseListener implements HelloListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	
-	public Stack<Integer>       stack = new Stack<Integer>();
-	
-	@Override public void enterAdd(@NotNull HelloParser.AddContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAdd(@NotNull HelloParser.AddContext ctx) {
-		int num1 = Integer.parseInt(ctx.getChild(0).getText());
-		int num2 = Integer.parseInt(ctx.getChild(2).getText());
-//		int sum = num1 + num2;
-		System.out.println("sum: " + (num1+num2));
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDiv(@NotNull HelloParser.DivContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDiv(@NotNull HelloParser.DivContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSub(@NotNull HelloParser.SubContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSub(@NotNull HelloParser.SubContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
+	public Stack<Integer> stack = new Stack<Integer>();
 	@Override public void enterS(@NotNull HelloParser.SContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitS(@NotNull HelloParser.SContext ctx) { }
+	@Override public void exitS(@NotNull HelloParser.SContext ctx) {
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMult(@NotNull HelloParser.MultContext ctx) { }
+	@Override public void enterAddSub(@NotNull HelloParser.AddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMult(@NotNull HelloParser.MultContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMod(@NotNull HelloParser.ModContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMod(@NotNull HelloParser.ModContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExpr(@NotNull HelloParser.ExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpr(@NotNull HelloParser.ExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExpr2(@NotNull HelloParser.Expr2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpr2(@NotNull HelloParser.Expr2Context ctx) {
+	@Override public void exitAddSub(@NotNull HelloParser.AddSubContext ctx) { 
 		Integer op1 = stack.pop();
 	    Integer op2 = stack.pop();
+//	    System.out.println("op1: " + op1 + "\top2: " + op2);
 	    if (ctx.getChild(1).getText().equals("-"))
 	    {
-	      stack.push(op2 - op1);
+//	    	System.out.println(op2 + "-" + op1);
+	    	stack.push(op2 - op1);
+	    }
+	    else if (ctx.getChild(1).getText().equals("+"))
+	    {
+//	    	System.out.println(op2 + "+" + op1);
+	    	stack.push(op1 + op2);
+	    }	
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMultDivMod(@NotNull HelloParser.MultDivModContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMultDivMod(@NotNull HelloParser.MultDivModContext ctx) { 
+		Integer op1 = stack.pop();
+	    Integer op2 = stack.pop();
+	    if (ctx.getChild(1).getText().equals("/"))
+	    {
+	      stack.push(op2 / op1);
+	    }
+	    else if (ctx.getChild(1).getText().equals("%"))
+	    {
+	    	stack.push(op2 % op1);
 	    }
 	    else
 	    {
-	      stack.push(op1 + op2);
+	      stack.push(op2 * op1);
 	    }
-	    System.out.println("pumasok dito");
+	    
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParenExpr(@NotNull HelloParser.ParenExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParenExpr(@NotNull HelloParser.ParenExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnit(@NotNull HelloParser.UnitContext ctx) { 
+		System.out.println("hi");
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnit(@NotNull HelloParser.UnitContext ctx) {
+//		if (new Integer(ctx.getChild(0).getText()) >= 0)
+			stack.push(new Integer(ctx.getChild(0).getText()));
+//		else {
+//			if(Integer.parseInt(ctx.getChild(0).getText()) < 0 && ctx.getParent().getClass().equals(MultDivModContext.class))
+//				System.out.println();
+//			
+//		}
 	}
 
 	/**
