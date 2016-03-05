@@ -20,6 +20,7 @@ import antlr.HelloParser;
 public class HelloBaseListener implements HelloListener {
 	
 	public Stack<Integer> stack = new Stack<Integer>();
+	private String errorMessage;
 	
 	@Override public void enterNegaExpr(@NotNull HelloParser.NegaExprContext ctx) { }
 	/**
@@ -46,8 +47,14 @@ public class HelloBaseListener implements HelloListener {
 	 */
 	@Override public void exitS(@NotNull HelloParser.SContext ctx) 
 	{
-		Integer ans = stack.pop();
-		System.out.println(ans);
+		Integer ans;
+		if (!stack.isEmpty()) {
+			ans = stack.pop();
+			System.out.println(ans);
+		}
+		else {
+			System.out.println(errorMessage);
+		}
 	}
 	/**
 	 * {@inheritDoc}
@@ -91,17 +98,21 @@ public class HelloBaseListener implements HelloListener {
 	{
 		Integer op1 = stack.pop();
 	    Integer op2 = stack.pop();
-	    if (ctx.getChild(1).getText().equals("/"))
-	    {
-	      stack.push(op2 / op1);
-	    }
-	    else if(ctx.getChild(1).getText().equals("*"))
-	    {
-	      stack.push(op2 * op1);
-	    }
-	    else
-	    {
-	    	stack.push(op2 % op1);
+	    if (op1 == 0)
+	    	errorMessage = "Error: '" + ctx.getText() + "' is invalid because 0 cannot be a divider.";
+	    else {
+	    	if (ctx.getChild(1).getText().equals("/"))
+		    {
+		      stack.push(op2 / op1);
+		    }
+		    else if(ctx.getChild(1).getText().equals("*"))
+		    {
+		      stack.push(op2 * op1);
+		    }
+		    else
+		    {
+		    	stack.push(op2 % op1);
+		    }
 	    }
 	}
 	/**

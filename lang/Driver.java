@@ -34,7 +34,6 @@ public class Driver {
 	        parser.setBuildParseTree(true);
 	        parser.addParseListener(new HelloBaseListener());
 	        ParseTree tree = parser.s();
-
 		}
 	}
 
