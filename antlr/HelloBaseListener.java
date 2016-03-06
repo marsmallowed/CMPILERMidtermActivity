@@ -98,15 +98,20 @@ public class HelloBaseListener implements HelloListener {
 	 */
 	@Override public void exitNegaUnit(@NotNull HelloParser.NegaUnitContext ctx) 
 	{
-		int i;
+		long i;
 		try
 		{
-	        i = Integer.parseInt(ctx.getText());
-	        stack.push(i);
+	        i = Long.parseLong(ctx.getText());
+	        if(i < Integer.MIN_VALUE)
+	        {
+	        	errorMessage += "Error: Integer out of range\n";
+	        }
+	        else
+	         stack.push(Integer.parseInt(ctx.getText()));
 	    }
-		catch (NumberFormatException e)
+		catch (Exception e)
 		{
-	        errorMessage += "Error: Integer out of range\n";
+	        e.printStackTrace();
 	    }
 	}
 	/**
@@ -266,15 +271,26 @@ public class HelloBaseListener implements HelloListener {
 	 */
 	@Override public void exitUnit(@NotNull HelloParser.UnitContext ctx) 
 	{
-		int i;
+		long i;
 		try
 		{
-	        i = Integer.parseInt(ctx.getText());
-	        stack.push(i);
+			if(ctx.getText().matches("[0-9]+"))
+			{
+				i = Long.parseLong(ctx.getText());
+			
+	        if(i > Integer.MAX_VALUE)
+	        {
+	        	errorMessage += "Error: Integer out of range\n";
+	        }
+	        else
+	        {
+	        	stack.push(Integer.parseInt(ctx.getText()));
+	        }
+			}
 	    }
-		catch (NumberFormatException e)
+		catch (Exception e)
 		{
-	        errorMessage += "Error: Integer out of range\n";
+	        e.printStackTrace();
 	    }
 	}
 
