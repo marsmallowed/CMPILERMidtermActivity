@@ -51,7 +51,17 @@ public class Driver
 	        ParseTree tree = parser.s();
 	        
 	        if (customErrorListener.hasErrors())
-	        	System.out.printf(customErrorListener.getError());
+	        {
+	        	try
+	        	{
+	        		System.out.printf(customErrorListener.getError());	
+	        	}
+	        	catch(Exception e)
+	        	{
+	        		e.printStackTrace();
+	        	}
+	        	
+	        }
 	        
 	        ctr++;
 		}
