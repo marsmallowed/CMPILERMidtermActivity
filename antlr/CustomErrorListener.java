@@ -25,7 +25,11 @@ public class CustomErrorListener extends BaseErrorListener
 	
 	public String getError()
 	{
-		return this.items.toString();
+		String revisedError = this.items.toString();
+		
+		revisedError = revisedError.substring(1, revisedError.length()-1);
+		
+		return revisedError;
 	}
 	
     @Override

@@ -19,7 +19,7 @@ public class Driver
 {
 	public static void main(String[] args) throws IOException
 	{
-		String fileName = "input2.txt";
+		String fileName = "input.txt";
 		ArrayList<String> equations = new ArrayList<String>();
 		equations = ReadFile.read(fileName);
 		int ctr = 1;
