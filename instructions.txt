@@ -1,0 +1,3 @@
+To run:
+1. Put the input.txt file containing the expressions to be evaluated in the same folder as the .exe
+2. 

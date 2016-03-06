@@ -4,12 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Recognizer;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.RecognitionException;
-
 import antlr.CustomErrorListener;
 import antlr.HelloBaseListener;
 import antlr.HelloLexer;
@@ -45,7 +40,7 @@ public class Driver
 	        
 	        parser.setBuildParseTree(true);
 	        parser.addParseListener(new HelloBaseListener());
-	        ParseTree tree = parser.s();
+	        parser.s();
 		}
 	}
 }
