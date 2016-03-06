@@ -20,7 +20,7 @@ import antlr.HelloParser;
 public class HelloBaseListener implements HelloListener {
 	
 	public Stack<Integer> stack = new Stack<Integer>();
-	private String errorMessage = "Error: ";
+	private String errorMessage = "";
 	
 	@Override public void enterNegaExpr(@NotNull HelloParser.NegaExprContext ctx) { }
 	/**
@@ -86,7 +86,7 @@ public class HelloBaseListener implements HelloListener {
 	        i = Integer.parseInt(ctx.getText());
 	        stack.push(i);
 	    } catch (NumberFormatException e) {
-	        errorMessage += "Integer out of range\n";
+	        errorMessage += "Error: Integer out of range\n";
 	    }
 	}
 	/**
@@ -117,14 +117,14 @@ public class HelloBaseListener implements HelloListener {
 			{
 		    	if(op1 == 0)
 			    {
-		    		errorMessage += "Invalid Operation\n";
+		    		errorMessage += "Error: Invalid Operation\n";
 			    }
 		    	else
 		    	{
 		    		c = a / b;
 		    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
 			    	{
-			    		errorMessage += "Integer out of range\n";
+			    		errorMessage += "Error: Integer out of range\n";
 			    	 }
 			    	 else
 			    	 {
@@ -137,7 +137,7 @@ public class HelloBaseListener implements HelloListener {
 				c = a * b;
 	    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
 		    	{
-		    		errorMessage += "Integer out of range\n";
+		    		errorMessage += "Error: Integer out of range\n";
 		    	 }
 		    	 else
 		    	 {
@@ -148,14 +148,14 @@ public class HelloBaseListener implements HelloListener {
 			{
 				if(op1 == 0)
 			    {
-	    		errorMessage += "Invalid Operation\n";
+	    		errorMessage += "Error: Invalid Operation\n";
 			    }
 				else
 				{
 					c = a % b;
 		    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
 			    	{
-			    		errorMessage += "Integer out of range\n";
+			    		errorMessage += "Error: Integer out of range\n";
 			    	 }
 			    	 else
 			    	 {
@@ -197,7 +197,7 @@ public class HelloBaseListener implements HelloListener {
 		    	c = a - b;
 		    	if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
 		    	{
-		    		errorMessage += "Integer out of range\n";
+		    		errorMessage += "Error: Integer out of range\n";
 		    	 }
 		    	 else
 		    	 {
@@ -209,7 +209,7 @@ public class HelloBaseListener implements HelloListener {
 		    	 c = a + b;
 		    	 if (c > Integer.MAX_VALUE  || c < Integer.MIN_VALUE)
 		    	 {
-		    		 errorMessage += "Integer out of range\n";
+		    		 errorMessage += "Error: Integer out of range\n";
 		    	 }
 		    	 else
 		    	 {
@@ -239,7 +239,7 @@ public class HelloBaseListener implements HelloListener {
 	        i = Integer.parseInt(ctx.getText());
 	        stack.push(i);
 	    } catch (NumberFormatException e) {
-	        errorMessage += "Integer out of range\n";
+	        errorMessage += "Error: Integer out of range\n";
 	    }
 	}
 
