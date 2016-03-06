@@ -29,8 +29,17 @@ public class HelloBaseListener implements HelloListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNegaExpr(@NotNull HelloParser.NegaExprContext ctx) 
-	{ 
-		Integer op1 = stack.pop();
+	{
+		Integer op1 = null;
+		
+		try
+		{
+			op1 = stack.pop();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		stack.push(-1 * op1);
 	}
 	/**
@@ -48,12 +57,20 @@ public class HelloBaseListener implements HelloListener {
 	@Override public void exitS(@NotNull HelloParser.SContext ctx) 
 	{
 		Integer ans;
-		if (!stack.isEmpty()) {
-			ans = stack.pop();
-			System.out.println(ans);
+		
+		try
+		{
+			if (!stack.isEmpty()) {
+				ans = stack.pop();
+				System.out.println(ans);
+			}
+			else {
+				System.out.print(errorMessage);
+			}
 		}
-		else {
-			System.out.print(errorMessage);
+		catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 	/**
@@ -82,10 +99,13 @@ public class HelloBaseListener implements HelloListener {
 	@Override public void exitNegaUnit(@NotNull HelloParser.NegaUnitContext ctx) 
 	{
 		int i;
-		try {
+		try
+		{
 	        i = Integer.parseInt(ctx.getText());
 	        stack.push(i);
-	    } catch (NumberFormatException e) {
+	    }
+		catch (NumberFormatException e)
+		{
 	        errorMessage += "Error: Integer out of range\n";
 	    }
 	}
@@ -105,68 +125,74 @@ public class HelloBaseListener implements HelloListener {
 		Integer op1;
 	    Integer op2;
 
-	    if (!stack.isEmpty() && stack.size() >= 2) 
+	    try
 	    {
-	    	op1 = stack.pop();
-	    	op2 = stack.pop();
-	    	long a = op2;
-	    	long b = op1;
-	    	long c;
-	    	
-		    if (ctx.getChild(1).getText().equals("/"))
-			{
-		    	if(op1 == 0)
-			    {
-		    		errorMessage += "Error: Invalid Operation\n";
-			    }
-		    	else
-		    	{
-		    		c = a / b;
+		    if (!stack.isEmpty() && stack.size() >= 2) 
+		    {
+		    	op1 = stack.pop();
+		    	op2 = stack.pop();
+		    	long a = op2;
+		    	long b = op1;
+		    	long c;
+		    	
+			    if (ctx.getChild(1).getText().equals("/"))
+				{
+			    	if(op1 == 0)
+				    {
+			    		errorMessage += "Error: Invalid Operation\n";
+				    }
+			    	else
+			    	{
+			    		c = a / b;
+			    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
+				    	{
+				    		errorMessage += "Error: Integer out of range\n";
+				    	 }
+				    	 else
+				    	 {
+				    		 stack.push(op2 / op1);
+				    	 }
+			    	}
+				}
+				else if(ctx.getChild(1).getText().equals("*"))
+				{
+					c = a * b;
 		    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
 			    	{
 			    		errorMessage += "Error: Integer out of range\n";
 			    	 }
 			    	 else
 			    	 {
-			    		 stack.push(op2 / op1);
+			    		 stack.push(op2 * op1);
 			    	 }
-		    	}
-			}
-			else if(ctx.getChild(1).getText().equals("*"))
-			{
-				c = a * b;
-	    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
-		    	{
-		    		errorMessage += "Error: Integer out of range\n";
-		    	 }
-		    	 else
-		    	 {
-		    		 stack.push(op2 * op1);
-		    	 }
-			}
-			else
-			{
-				if(op1 == 0)
-			    {
-	    		errorMessage += "Error: Invalid Operation\n";
-			    }
+				}
 				else
 				{
-					c = a % b;
-		    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
-			    	{
-			    		errorMessage += "Error: Integer out of range\n";
-			    	 }
-			    	 else
-			    	 {
-			    		 stack.push(op2 % op1);
-			    	 }		
+					if(op1 == 0)
+				    {
+		    		errorMessage += "Error: Invalid Operation\n";
+				    }
+					else
+					{
+						c = a % b;
+			    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
+				    	{
+				    		errorMessage += "Error: Integer out of range\n";
+				    	 }
+				    	 else
+				    	 {
+				    		 stack.push(op2 % op1);
+				    	 }		
+					}
 				}
 			}
+		    else if(stack.size() == 1)
+		    	stack.pop();
+	    }
+	    catch(Exception e)
+		{
+			e.printStackTrace();
 		}
-	    else if(stack.size() == 1)
-	    	stack.pop();
-
 	}
 	/**
 	 * {@inheritDoc}
@@ -184,42 +210,48 @@ public class HelloBaseListener implements HelloListener {
 		Integer op1;
 	    Integer op2;
 
-	    if (!stack.isEmpty() && stack.size() >= 2) 
+	    try
 	    {
-	    	op1 = stack.pop();
-	    	op2 = stack.pop();
-	    	long a = op2;
-	    	long b = op1;
-	    	long c;
-	    	
-		    if (ctx.getChild(1).getText().equals("-"))
+		    if (!stack.isEmpty() && stack.size() >= 2) 
 		    {
-		    	c = a - b;
-		    	if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
-		    	{
-		    		errorMessage += "Error: Integer out of range\n";
-		    	 }
-		    	 else
-		    	 {
-		    		 stack.push(op2 - op1);
-		    	 }
+		    	op1 = stack.pop();
+		    	op2 = stack.pop();
+		    	long a = op2;
+		    	long b = op1;
+		    	long c;
+		    	
+			    if (ctx.getChild(1).getText().equals("-"))
+			    {
+			    	c = a - b;
+			    	if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
+			    	{
+			    		errorMessage += "Error: Integer out of range\n";
+			    	 }
+			    	 else
+			    	 {
+			    		 stack.push(op2 - op1);
+			    	 }
+			    }
+			    else
+			    {
+			    	 c = a + b;
+			    	 if (c > Integer.MAX_VALUE  || c < Integer.MIN_VALUE)
+			    	 {
+			    		 errorMessage += "Error: Integer out of range\n";
+			    	 }
+			    	 else
+			    	 {
+			    		 stack.push(op2 + op1);
+			    	 }
+			    }
 		    }
-		    else
-		    {
-		    	 c = a + b;
-		    	 if (c > Integer.MAX_VALUE  || c < Integer.MIN_VALUE)
-		    	 {
-		    		 errorMessage += "Error: Integer out of range\n";
-		    	 }
-		    	 else
-		    	 {
-		    		 stack.push(op2 + op1);
-		    	 }
-		    }
-	    }
-	    else if(stack.size() == 1)
-	    	stack.pop();
-
+		    else if(stack.size() == 1)
+		    	stack.pop();
+		}
+	    catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * {@inheritDoc}
@@ -235,10 +267,13 @@ public class HelloBaseListener implements HelloListener {
 	@Override public void exitUnit(@NotNull HelloParser.UnitContext ctx) 
 	{
 		int i;
-		try {
+		try
+		{
 	        i = Integer.parseInt(ctx.getText());
 	        stack.push(i);
-	    } catch (NumberFormatException e) {
+	    }
+		catch (NumberFormatException e)
+		{
 	        errorMessage += "Error: Integer out of range\n";
 	    }
 	}
