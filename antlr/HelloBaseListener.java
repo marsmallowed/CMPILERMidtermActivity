@@ -109,6 +109,9 @@ public class HelloBaseListener implements HelloListener {
 	    {
 	    	op1 = stack.pop();
 	    	op2 = stack.pop();
+	    	long a = op2;
+	    	long b = op1;
+	    	long c;
 	    	
 		    if (ctx.getChild(1).getText().equals("/"))
 			{
@@ -118,24 +121,28 @@ public class HelloBaseListener implements HelloListener {
 			    }
 		    	else
 		    	{
-		    		int i;
-		    		try {
-		    	        i = op2 / op1;
-		    	        stack.push(i);
-		    	    } catch (ArithmeticException e) {
-		    	        errorMessage += "Integer out of range\n";
-		    	    }
+		    		c = a / b;
+		    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
+			    	{
+			    		errorMessage += "Integer out of range\n";
+			    	 }
+			    	 else
+			    	 {
+			    		 stack.push(op2 / op1);
+			    	 }
 		    	}
 			}
 			else if(ctx.getChild(1).getText().equals("*"))
 			{
-				int i;
-	    		try {
-	    	        i = op2 * op1;
-	    	        stack.push(i);
-	    	    } catch (ArithmeticException e) {
-	    	        errorMessage += "Integer out of range\n";
-	    	    }
+				c = a * b;
+	    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
+		    	{
+		    		errorMessage += "Integer out of range\n";
+		    	 }
+		    	 else
+		    	 {
+		    		 stack.push(op2 * op1);
+		    	 }
 			}
 			else
 			{
@@ -145,13 +152,15 @@ public class HelloBaseListener implements HelloListener {
 			    }
 				else
 				{
-					int i;
-		    		try {
-		    	        i = op2 % op1;
-		    	        stack.push(i);
-		    	    } catch (ArithmeticException e) {
-		    	        errorMessage += "Integer out of range\n";
-		    	    }			
+					c = a % b;
+		    		if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
+			    	{
+			    		errorMessage += "Integer out of range\n";
+			    	 }
+			    	 else
+			    	 {
+			    		 stack.push(op2 % op1);
+			    	 }		
 				}
 			}
 		}
@@ -179,26 +188,33 @@ public class HelloBaseListener implements HelloListener {
 	    {
 	    	op1 = stack.pop();
 	    	op2 = stack.pop();
+	    	long a = op2;
+	    	long b = op1;
+	    	long c;
 	    	
 		    if (ctx.getChild(1).getText().equals("-"))
 		    {
-		    	int i;
-	    		try {
-	    	        i = op2 - op1;
-	    	        stack.push(i);
-	    	    } catch (ArithmeticException e) {
-	    	        errorMessage += "Integer out of range\n";
-	    	    }
+		    	c = a - b;
+		    	if(c > Integer.MAX_VALUE || c < Integer.MIN_VALUE)
+		    	{
+		    		errorMessage += "Integer out of range\n";
+		    	 }
+		    	 else
+		    	 {
+		    		 stack.push(op2 - op1);
+		    	 }
 		    }
 		    else
 		    {
-		    	int i;
-	    		try {
-	    	        i = op2 + op1;
-	    	        stack.push(i);
-	    	    } catch (ArithmeticException e) {
-	    	        errorMessage += "Integer out of range\n";
-	    	    }
+		    	 c = a + b;
+		    	 if (c > Integer.MAX_VALUE  || c < Integer.MIN_VALUE)
+		    	 {
+		    		 errorMessage += "Integer out of range\n";
+		    	 }
+		    	 else
+		    	 {
+		    		 stack.push(op2 + op1);
+		    	 }
 		    }
 	    }
 	    else if(stack.size() == 1)
