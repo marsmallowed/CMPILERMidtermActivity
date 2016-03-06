@@ -25,7 +25,7 @@ public class Driver
 		int ctr = 1;
 		
 		for (String s : equations) {
-			System.out.println("[" + ctr + "] ");
+			System.out.print("\n[" + ctr + "] ");
 			ANTLRInputStream input = new ANTLRInputStream(s);
 			CustomErrorListener customErrorListener = new CustomErrorListener();
 			
@@ -48,7 +48,6 @@ public class Driver
 	        
 	        parser.setBuildParseTree(true);
 	        parser.addParseListener(new HelloBaseListener());
-	        System.out.println("Result: ");
 	        ParseTree tree = parser.s();
 	        
 	        if (customErrorListener.hasErrors())

@@ -37,11 +37,11 @@ public class CustomErrorListener extends BaseErrorListener
     {
     	if(msg.contains("token recognition error"))
     	{
-    		items.add("@Lexical Error\n\t" + "[" + line + ":" + charPositionInLine + "] " + msg + "\n");
+    		items.add("\n@Lexical Error\n\t" + "[" + line + ":" + charPositionInLine + "] " + msg);
     	}
     	else
     	{
-			items.add("@Syntax Error\n\t" + "[" + line + ":" + charPositionInLine + "] " + msg + "\n");
+			items.add("\n@Syntax Error\n\t" + "[" + line + ":" + charPositionInLine + "] " + msg);
     	}
     }
 }
