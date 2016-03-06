@@ -20,7 +20,7 @@ import antlr.HelloParser;
 public class HelloBaseListener implements HelloListener {
 	
 	public Stack<Integer> stack = new Stack<Integer>();
-	private String errorMessage;
+	private String errorMessage = "";
 	
 	@Override public void enterNegaExpr(@NotNull HelloParser.NegaExprContext ctx) { }
 	/**
@@ -53,7 +53,7 @@ public class HelloBaseListener implements HelloListener {
 			System.out.println(ans);
 		}
 		else {
-			System.out.println(errorMessage);
+			System.out.print(errorMessage);
 		}
 	}
 	/**
@@ -96,24 +96,38 @@ public class HelloBaseListener implements HelloListener {
 	 */
 	@Override public void exitMultDivMod(@NotNull HelloParser.MultDivModContext ctx) 
 	{
-		Integer op1 = stack.pop();
-	    Integer op2 = stack.pop();
-	    if (op1 == 0)
-	    	errorMessage = "Error: '" + ctx.getText() + "' is invalid because 0 cannot be a divider.";
-	    else {
-	    	if (ctx.getChild(1).getText().equals("/"))
-		    {
-		      stack.push(op2 / op1);
-		    }
-		    else if(ctx.getChild(1).getText().equals("*"))
-		    {
-		      stack.push(op2 * op1);
-		    }
-		    else
-		    {
-		    	stack.push(op2 % op1);
-		    }
-	    }
+		Integer op1;
+	    Integer op2;
+
+	    if (!stack.isEmpty() && stack.size() >= 2) 
+	    {
+	    	op1 = stack.pop();
+	    	op2 = stack.pop();
+	    	
+		    if (ctx.getChild(1).getText().equals("/"))
+			{
+		    	if(op1 == 0)
+			    {
+		    		errorMessage += "Error: '" + ctx.getText() + "' is invalid because 0 cannot be a divider.\n";
+			    }
+		    	else
+		    		stack.push(op2 / op1);
+			}
+			else if(ctx.getChild(1).getText().equals("*"))
+			{
+			    stack.push(op2 * op1);
+			}
+			else
+			{
+				if(op1 == 0)
+			    {
+	    		errorMessage += "Error: '" + ctx.getText() + "' is invalid because 0 cannot be used as an operand in modulo.\n";
+			    }
+				else
+					stack.push(op2 % op1);
+			}
+		}
+
 	}
 	/**
 	 * {@inheritDoc}
@@ -128,16 +142,24 @@ public class HelloBaseListener implements HelloListener {
 	 */
 	@Override public void exitAddSub(@NotNull HelloParser.AddSubContext ctx) 
 	{
-		Integer op1 = stack.pop();
-	    Integer op2 = stack.pop();
-	    if (ctx.getChild(1).getText().equals("-"))
+		Integer op1;
+	    Integer op2;
+
+	    if (!stack.isEmpty() && stack.size() >= 2) 
 	    {
-	      stack.push(op2 - op1);
+	    	op1 = stack.pop();
+	    	op2 = stack.pop();
+	    	
+		    if (ctx.getChild(1).getText().equals("-"))
+		    {
+		      stack.push(op2 - op1);
+		    }
+		    else
+		    {
+		      stack.push(op1 + op2);
+		    }
 	    }
-	    else
-	    {
-	      stack.push(op1 + op2);
-	    }
+
 	}
 	/**
 	 * {@inheritDoc}
