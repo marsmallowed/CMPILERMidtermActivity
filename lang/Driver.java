@@ -22,8 +22,12 @@ public class Driver
 		String fileName = "input.txt";
 		ArrayList<String> equations = new ArrayList<String>();
 		equations = ReadFile.read(fileName);
+		int i = 1;
 		
 		for (String s : equations) {
+			System.out.print(i + ": ");
+			i++;
+			
 			ANTLRInputStream input = new ANTLRInputStream(s);
 			
 	        //Get lexer
