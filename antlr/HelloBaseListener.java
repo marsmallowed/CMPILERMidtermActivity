@@ -20,7 +20,7 @@ import antlr.HelloParser;
 public class HelloBaseListener implements HelloListener {
 	
 	public Stack<Integer> stack = new Stack<Integer>();
-	private String errorMessage = "";
+	private String errorMessage = "Error: ";
 	
 	@Override public void enterNegaExpr(@NotNull HelloParser.NegaExprContext ctx) { }
 	/**
@@ -81,7 +81,13 @@ public class HelloBaseListener implements HelloListener {
 	 */
 	@Override public void exitNegaUnit(@NotNull HelloParser.NegaUnitContext ctx) 
 	{
-		stack.push(Integer.parseInt(ctx.getText()));
+		int i;
+		try {
+	        i = Integer.parseInt(ctx.getText());
+	        stack.push(i);
+	    } catch (NumberFormatException e) {
+	        errorMessage += "Integer out of range\n";
+	    }
 	}
 	/**
 	 * {@inheritDoc}
@@ -108,25 +114,49 @@ public class HelloBaseListener implements HelloListener {
 			{
 		    	if(op1 == 0)
 			    {
-		    		errorMessage += "Error: '" + ctx.getText() + "' is invalid because 0 cannot be a divider.\n";
+		    		errorMessage += "Invalid Operation\n";
 			    }
 		    	else
-		    		stack.push(op2 / op1);
+		    	{
+		    		int i;
+		    		try {
+		    	        i = op2 / op1;
+		    	        stack.push(i);
+		    	    } catch (ArithmeticException e) {
+		    	        errorMessage += "Integer out of range\n";
+		    	    }
+		    	}
 			}
 			else if(ctx.getChild(1).getText().equals("*"))
 			{
-			    stack.push(op2 * op1);
+				int i;
+	    		try {
+	    	        i = op2 * op1;
+	    	        stack.push(i);
+	    	    } catch (ArithmeticException e) {
+	    	        errorMessage += "Integer out of range\n";
+	    	    }
 			}
 			else
 			{
 				if(op1 == 0)
 			    {
-	    		errorMessage += "Error: '" + ctx.getText() + "' is invalid because 0 cannot be used as an operand in modulo.\n";
+	    		errorMessage += "Invalid Operation\n";
 			    }
 				else
-					stack.push(op2 % op1);
+				{
+					int i;
+		    		try {
+		    	        i = op2 % op1;
+		    	        stack.push(i);
+		    	    } catch (ArithmeticException e) {
+		    	        errorMessage += "Integer out of range\n";
+		    	    }			
+				}
 			}
 		}
+	    else if(stack.size() == 1)
+	    	stack.pop();
 
 	}
 	/**
@@ -152,13 +182,27 @@ public class HelloBaseListener implements HelloListener {
 	    	
 		    if (ctx.getChild(1).getText().equals("-"))
 		    {
-		      stack.push(op2 - op1);
+		    	int i;
+	    		try {
+	    	        i = op2 - op1;
+	    	        stack.push(i);
+	    	    } catch (ArithmeticException e) {
+	    	        errorMessage += "Integer out of range\n";
+	    	    }
 		    }
 		    else
 		    {
-		      stack.push(op1 + op2);
+		    	int i;
+	    		try {
+	    	        i = op2 + op1;
+	    	        stack.push(i);
+	    	    } catch (ArithmeticException e) {
+	    	        errorMessage += "Integer out of range\n";
+	    	    }
 		    }
 	    }
+	    else if(stack.size() == 1)
+	    	stack.pop();
 
 	}
 	/**
@@ -174,7 +218,13 @@ public class HelloBaseListener implements HelloListener {
 	 */
 	@Override public void exitUnit(@NotNull HelloParser.UnitContext ctx) 
 	{
-		stack.push(Integer.parseInt(ctx.getText()));
+		int i;
+		try {
+	        i = Integer.parseInt(ctx.getText());
+	        stack.push(i);
+	    } catch (NumberFormatException e) {
+	        errorMessage += "Integer out of range\n";
+	    }
 	}
 
 	/**
